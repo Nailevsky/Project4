@@ -1,0 +1,7 @@
+=> 
+[32m#<User:0x0000023d72b88c18[0m
+ id: [34m[1m1[0m,
+ email: [31m[1m"[0m[31mnail@gora.com[0m[31m[1m"[0m,
+ password_digest: [31m[1m"[0m[31m[FILTERED][0m[31m[1m"[0m,
+ created_at: Tue, 28 May 2024 02:24:41.046149000 UTC +00:00,
+ updated_at: Tue, 28 May 2024 02:24:41.046149000 UTC +00:00[32m>[0m
