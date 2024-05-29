@@ -4,6 +4,9 @@
 #
 # Example:
 #
+Game.find_or_create_by(title: 'Prisoner\'s Dilemma', description: 'A classic game in game theory.')
+
+
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end

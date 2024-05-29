@@ -1,0 +1,10 @@
+<h1>Game Details</h1>
+<h2><%= @game.title %></h2>
+<p><%= @game.description %></p>
+
+<h2>Questions</h2>
+<ul>
+  <% @game.questions.each do |question| %>
+    <li><%= question.content %></li>
+  <% end %>
+</ul>

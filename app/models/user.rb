@@ -1,5 +1,7 @@
 class User < ApplicationRecord
     has_secure_password
+    has_many :participations
+    has_many :games, through: :participations
 
     validates :email, presence: true
     normalizes :email, with: ->(email) {email.strip.downcase}
