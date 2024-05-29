@@ -1,2 +1,12 @@
-<h1>Participation Details</h1>
-<p>Game: <%= @participation.game.title %></p>
+<h1><%= @game.title %></h1>
+<p><%= @game.description %></p>
+
+<h2>Answers</h2>
+<ul>
+  <% @participation.answers.each do |answer| %>
+    <li>Question: <%= answer.question.content %>, Your Answer: <%= answer.content %></li>
+  <% end %>
+</ul>
+
+<h2>Result</h2>
+<p><%= @participation.result&.outcome %></p>

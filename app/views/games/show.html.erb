@@ -1,10 +1,19 @@
-<h1>Game Details</h1>
-<h2><%= @game.title %></h2>
+<h1><%= @game.title %></h1>
 <p><%= @game.description %></p>
 
 <h2>Questions</h2>
 <ul>
   <% @game.questions.each do |question| %>
-    <li><%= question.content %></li>
+    <li><%= question %></li>
   <% end %>
 </ul>
+
+<%= form_with url: game_participations_path(@game), method: :post, local: true do %>
+  <div class="field">
+    <%= label_tag :answer_content, 'Answer' %>
+    <%= text_field_tag :answer_content %>
+  </div>
+  <div class="actions">
+    <%= submit_tag 'Participate' %>
+  </div>
+<% end %>
