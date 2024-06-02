@@ -1,12 +1,8 @@
-<h1><%= @game.title %></h1>
-<p><%= @game.description %></p>
+<h1>Game Results</h1>
+<p>Game: <%= @participation.game.title %></p>
+<p>Rounds: <%= @participation.rounds %></p>
+<p>Player Type: <%= @participation.player_type %></p>
 
-<h2>Answers</h2>
-<ul>
-  <% @participation.answers.each do |answer| %>
-    <li>Question: <%= answer.question.content %>, Your Answer: <%= answer.content %></li>
-  <% end %>
-</ul>
-
-<h2>Result</h2>
-<p><%= @participation.result&.outcome %></p>
+<h2>Final Score:</h2>
+<p>You: <%= @participation.user_score %></p>
+<p>Player: <%= @participation.player_score %></p>

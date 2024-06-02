@@ -1,0 +1,14 @@
+<h1>Round <%= @round %></h1>
+
+<%= form_with url: update_round_game_participation_path(@participation.game, @participation, round: @round), method: :post do %>
+  <div>
+    <label for="move">Your move:</label>
+    <%= select_tag :move, options_for_select([['Cooperate', 'cooperate'], ['Betray', 'betray']]) %>
+  </div>
+  <div>
+    <%= submit_tag "Submit Move" %>
+  </div>
+<% end %>
+
+<p>User Score: <%= @participation.user_score %></p>
+<p>Player Score: <%= @participation.player_score %></p>

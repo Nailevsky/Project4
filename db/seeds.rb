@@ -4,8 +4,6 @@
 #
 # Example:
 #
-game = Game.find_or_create_by(title: "Prisoner's Dilemma", description: "A classic game in game theory.")
-game.questions.create(content: "What will you do?") unless game.questions.exists?
 
 
 

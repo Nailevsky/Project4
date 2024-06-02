@@ -3,6 +3,7 @@ class User < ApplicationRecord
     has_many :participations
     has_many :games, through: :participations
 
+    validates :username, presence: true, uniqueness: true
     validates :email, presence: true
     normalizes :email, with: ->(email) {email.strip.downcase}
 
