@@ -1,14 +1,42 @@
-<h1>Round <%= @round %></h1>
+<% if @round >= @participation.rounds %>
+  <h2>The game is over</h2>
+  <p>Final Score: You - <%= @participation.user_score %>, Player - <%= @participation.player_score %></p>
+  <%= button_to 'Play Again', restart_game_participation_path(@participation.game, @participation), method: :post %>
+  <div id="new-game-settings">
+    <h2>Or you can start a New Game</h2>
+    <%= form_with url: start_game_game_path(@participation.game), method: :post do %>
+      <div>
+        <label for="player_type">Choose Player:</label>
+        <%= select_tag :player_type, options_for_select([['Always Cooperate', 'always_cooperate'], ['Always Betray', 'always_betray'], ['Tit for Tat', 'tit_for_tat'], ['Random', 'random']]) %>
+      </div>
+      <div>
+        <label for="rounds">Number of Rounds:</label>
+        <%= number_field_tag :rounds, 11 %>
+      </div>
+      <div>
+        <%= submit_tag "Start New Game" %>A
+      </div>
+    <% end %>
 
-<%= form_with url: update_round_game_participation_path(@participation.game, @participation, round: @round), method: :post do %>
-  <div>
-    <label for="move">Your move:</label>
-    <%= select_tag :move, options_for_select([['Cooperate', 'cooperate'], ['Betray', 'betray']]) %>
   </div>
-  <div>
-    <%= submit_tag "Submit Move" %>
+<% else %>
+  <h1>Round <%= @round %></h1>
+  <%= form_with url: update_round_game_participation_path(@participation.game, @participation, round: @round), method: :post do %>
+    <div>
+    <button type="submit" name="move" value="cooperate">Cooperate</button>
+    <button type="submit" name="move" value="betray">Betray</button>
   </div>
+  <% end %>
+
+  <% if @round > 1 %>
+    <h2>Previous Round Results</h2>
+    <p>User Move: <%= @user_move %></p>
+    <p>Player Move: <%= @player_move %></p>
+    <p>User Score for Previous Round: <%= @previous_user_score %></p>
+    <p>Player Score for Previous Round: <%= @previous_player_score %></p>
+  <% end %>
+
+  <h2>Current Total Score</h2>
+  <p>User Score: <%= @participation.user_score %></p>
+  <p>Player Score: <%= @participation.player_score %></p>
 <% end %>
-
-<p>User Score: <%= @participation.user_score %></p>
-<p>Player Score: <%= @participation.player_score %></p>

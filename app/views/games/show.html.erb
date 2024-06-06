@@ -1,3 +1,16 @@
-<h1><%= @game.title %></h1>
-<p><%= @game.description %></p>
-<%= link_to 'Choose Player', choose_player_game_path(@game) %>
+<h1>Prisoner's  Dilemma</h1>
+<p>A classic game in game theory.</p>
+
+<%= form_with url: start_game_game_path(@game), method: :post do %>
+  <div>
+    <label for="player_type">Choose Player:</label>
+    <%= select_tag :player_type, options_for_select([['Always Cooperate', 'always_cooperate'], ['Always Betray', 'always_betray'], ['Tit for Tat', 'tit_for_tat'], ['Random', 'random']]) %>
+  </div>
+  <div>
+    <label for="rounds">Number of Rounds:</label>
+    <%= number_field_tag :rounds, 9 %> 
+  </div>
+  <div>
+    <%= submit_tag "Start Game" %>
+  </div>
+<% end %>

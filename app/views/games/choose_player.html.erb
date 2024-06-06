@@ -1,4 +1,4 @@
-<h1>Choose Your Opponent and Number of Rounds</h1>
+<h1>Choose Your Opponent</h1>
 
 <%= form_with url: start_game_game_path(@game), method: :post do %>
   <div>
@@ -7,7 +7,7 @@
   </div>
   <div>
     <label for="rounds">Number of Rounds:</label>
-    <%= number_field_tag :rounds, 2 %>
+    <%= number_field_tag :rounds, 9 %>
   </div>
   <div>
     <%= submit_tag "Start Game" %>

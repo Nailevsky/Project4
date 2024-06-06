@@ -14,6 +14,7 @@ Rails.application.routes.draw do
         get 'play_round'
         post 'update_round'
         post 'make_move'
+        post 'restart'
       end
     end
   end
