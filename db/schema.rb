@@ -21,7 +21,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_07_232042) do
   end
 
   create_table "moves", force: :cascade do |t|
-    t.integer "player_id"
+    t.string "player_type"
     t.bigint "game_id", null: false
     t.integer "round"
     t.string "move"
