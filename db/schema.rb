@@ -13,12 +13,10 @@
 ActiveRecord::Schema[7.1].define(version: 2024_06_02_035005) do
   create_table "answers", force: :cascade do |t|
     t.string "content"
-    t.integer "question_id", null: false
     t.integer "participation_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["participation_id"], name: "index_answers_on_participation_id"
-    t.index ["question_id"], name: "index_answers_on_question_id"
   end
 
   create_table "games", force: :cascade do |t|
@@ -87,7 +85,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_02_035005) do
   end
 
   add_foreign_key "answers", "participations"
-  add_foreign_key "answers", "questions"
   add_foreign_key "moves", "games"
   add_foreign_key "moves", "players"
   add_foreign_key "participations", "games"
