@@ -1,8 +1,25 @@
 <h1>Game Results</h1>
-<p>Game: <%= @participation.game.title %></p>
 <p>Rounds: <%= @participation.rounds %></p>
 <p>Player Type: <%= @participation.player_type %></p>
 
 <h2>Final Score:</h2>
 <p>You: <%= @participation.user_score %></p>
 <p>Player: <%= @participation.player_score %></p>
+
+<%= button_to 'Play Again', restart_game_participation_path(@participation.game, @participation), method: :post %>
+<div id="new-game-settings">
+  <h2>Or you can start a New Game</h2>
+  <%= form_with url: start_game_game_path(@participation.game), method: :post do %>
+    <div>
+      <label for="player_type">Choose Player:</label>
+      <%= select_tag :player_type, options_for_select([['Always Cooperate', 'always_cooperate'], ['Always Betray', 'always_betray'], ['Tit for Tat', 'tit_for_tat'], ['Random', 'random']]) %>
+    </div>
+    <div>
+      <label for="rounds">Number of Rounds:</label>
+      <%= number_field_tag :rounds, 11 %>
+    </div>
+    <div>
+      <%= submit_tag "Start New Game" %>
+    </div>
+  <% end %>
+</div>
