@@ -25,3 +25,8 @@ production:
   adapter: postgresql
   encoding: unicode
   pool: 5
+  database: naile_production
+  username: naile
+  password: <%= ENV['DATABASE_PASSWORD'] %>
+  host: localhost
+  port: 5432
