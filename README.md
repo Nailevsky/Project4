@@ -1,24 +1,19 @@
-# README
+# Game Theory App
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Description
+The Game Theory App is an interactive platform designed to explore the fascinating world of game theory through engaging game. Users can compete with others to see how different strategies can affect the outcomes. The app includes a game that challenge strategic thinking and decision-making skills.
 
-Things you may want to cover:
+## Deployed Project
+Check out the live project at: [Game Theory App on Render](https://gt-ikaz.onrender.com/)
 
-* Ruby version
+## Technologies Used
+- **Ruby on Rails**: For the backend and server-side logic.
+- **PostgreSQL**: As the primary database.
+- **Tailwind CSS**: For styling and responsive design.
+- **Render**: For deployment.
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## Features
+- User authentication with sign-up and log-in functionality.
+- Interactive game based on game theory concepts.
+- Real-time updates and dynamic user interactions.
+- Responsive design ensuring compatibility with various screen sizes.
