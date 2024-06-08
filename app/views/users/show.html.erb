@@ -1,18 +1,26 @@
-<h1><%= @user.username %>'s Profile</h1>
+<div class="max-w-4xl mx-auto bg-white p-8 rounded shadow mt-8">
+  <h1 class="text-2xl font-bold mb-4"><%= @user.username %>'s Profile</h1>
 
-<h2>Your Participations</h2>
+  <div class="mb-6">
+    <h2 class="text-xl font-semibold mb-4">Your Participations</h2>
 
-<% if @participations.any? %>
-  <ul>
-    <% @participations.each do |participation| %>
-      <li>
-        <strong>Game:</strong> <%= participation.game.title %><br>
-        <strong>Player Type:</strong> <%= participation.player_type %><br>
-        <strong>Rounds:</strong> <%= participation.rounds %><br>
-        <strong>Final Score:</strong> You:  <%= participation.user_score %>, Player:  <%= participation.player_score %>
-      </li>
+    <% if @participations.any? %>
+      <ul class="space-y-4">
+        <% @participations.each do |participation| %>
+          <li class="border p-4 rounded shadow">
+            <div class="text-lg font-medium"><strong>Game:</strong> <%= participation.game.title %></div>
+            <div><strong>Player Type:</strong> <%= participation.player_type %></div>
+            <div><strong>Rounds:</strong> <%= participation.rounds %></div>
+            <div><strong>Final Score:</strong> You: <%= participation.user_score %>, Player: <%= participation.player_score %></div>
+          </li>
+        <% end %>
+      </ul>
+    <% else %>
+      <p class="text-gray-500">You have not participated in any games yet.</p>
     <% end %>
-  </ul>
-<% else %>
-  <p>You have not participated in any games yet.</p>
-<% end %>
+  </div>
+
+  <div class="mt-6">
+    <%= link_to 'Edit Password', edit_password_path, class: 'text-blue-500 hover:underline' %>
+  </div>
+</div>

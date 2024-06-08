@@ -1,24 +1,30 @@
-<h1>Reset Your Password</h1>
-
-<%= form_with model: @user, url: password_reset_path(token: params[:token]) do |form| %>
-    <% if form.object.errors.any? %>
-        <% form.object.errors.full_messages.each do |message| %>
-            <div><%= message %></div>
+<div class="bg-gray-100 min-h-screen flex flex-col">
+  <div class="container max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2">
+    <div class="bg-white px-6 py-8 rounded shadow-md text-black w-full">
+      <h1 class="mb-8 text-3xl text-center">Reset Your Password</h1>
+      <%= form_with model: @user, url: password_reset_path(token: params[:token]), class: "w-full" do |form| %>
+        <% if form.object.errors.any? %>
+          <div class="bg-red-100 text-red-700 p-4 rounded mb-4">
+            <% form.object.errors.full_messages.each do |message| %>
+              <p><%= message %></p>
+            <% end %>
+          </div>
         <% end %>
-    <% end %>
 
+        <div class="mb-4">
+          <%= form.label :password, class: "block text-gray-700 text-sm font-bold mb-2" %>
+          <%= form.password_field :password, class: "block border border-grey-light w-full p-3 rounded mb-4" %>
+        </div>
 
-    <div>
-        <%= form.label :password %>
-        <%= form.password_field :password %>
+        <div class="mb-4">
+          <%= form.label :password_confirmation, class: "block text-gray-700 text-sm font-bold mb-2" %>
+          <%= form.password_field :password_confirmation, class: "block border border-grey-light w-full p-3 rounded mb-4" %>
+        </div>
+
+        <div class="actions">
+          <%= form.submit "Reset Your Password", class: "w-full text-center py-3 rounded bg-green-500 text-white hover:bg-green-600 focus:outline-none my-1" %>
+        </div>
+      <% end %>
     </div>
-
-    <div>
-        <%= form.label :password_confirmation %>
-        <%= form.password_field :password_confirmation %>
-    </div>
-
-    <div>
-        <%= form.submit "Reset Your Password" %>
-    </div>
-<% end %>
+  </div>
+</div>

@@ -20,7 +20,7 @@ class PasswordResetsController < ApplicationController
 
     def update
         if @user.update(password_params)
-            redirect_to new_session_path, notice: "Your password has been reset successfully. Please login."
+            redirect_to game_path(Game.first), notice: "Your password has been reset successfully. Please login."
         else
             render :edit, status: :unprocessable_entity
         end

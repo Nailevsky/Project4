@@ -7,7 +7,7 @@ class RegistrationsController < ApplicationController
         @user = User.new(registration_params)
         if @user.save
             login @user
-            redirect_to root_path
+            redirect_to game_path(Game.first), notice: "Successfully signed up!"
         else
             render :new, status: :unprocessable_entity
         end
