@@ -1,24 +1,50 @@
-<h1>Round <%= @round %></h1>
-<p>Rules:</p>
-<ul>
-  <li>If both cooperate, both get 3 points</li>
-  <li>If you cooperate and the opponent betrays, you get 0 points and the opponent gets 5 points</li>
-  <li>If both betray, both get 1 point</li>
-</ul>
+<h1 class="text-3xl font-extrabold text-center mb-6 text-gray-800 dark:text-white">
+  Round <%= @round %>
+</h1>
 
-<%= form_with url: update_round_game_participation_path(@participation.game, @participation, round: @round), method: :post do %>
-  <div>
-    <button type="submit" name="move" value="cooperate">Cooperate</button>
-    <button type="submit" name="move" value="betray">Betray</button>
+<% if @round > 1 %>
+  <div class="flex justify-between max-w-xl mx-auto mb-6">
+    <div class="bg-yellow-100 dark:bg-yellow-800 p-4 rounded-lg w-1/2 text-center mr-2">
+      <p class="text-gray-600 dark:text-gray-300">
+        <%= @user_move %> gets <%= @previous_user_score %>
+      </p>
+    </div>
+
+    <div class="bg-yellow-100 dark:bg-yellow-800 p-4 rounded-lg w-1/2 text-center ml-2">
+      <p class="text-gray-600 dark:text-gray-300">
+        <%= @player_move %> gets <%= @previous_player_score %>
+      </p>
+    </div>
   </div>
 <% end %>
 
-<% if @round > 1 %>
-  <h2>Previous Round Results</h2>
-  <p>User Move: <%= @user_move %> <%= @previous_user_score %></p>
-  <p>Player Move: <%= @player_move %> <%= @previous_player_score %></p>
-<% end %>
+<div class="bg-white dark:bg-gray-900 p-6 rounded-lg shadow-lg max-w-xl mx-auto">
+  <div class="flex justify-between mb-4">
+    <div class="bg-gray-100 dark:bg-gray-800 p-2 rounded-lg shadow-md w-1/2 text-center mr-2">
+      <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-100 mb-2">
+        User <%= @participation.user_score %>
+      </h3>
+    </div>
 
-<h2>Current Total Score</h2>
-<p>User : <%= @participation.user_score %></p>
-<p>Player : <%= @participation.player_score %></p>
+    <div class="bg-gray-100 dark:bg-gray-800 p-2 rounded-lg shadow-md w-1/2 text-center ml-2">
+      <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-100 mb-2">
+        Player <%= @participation.player_score %>
+      </h3>
+    </div>
+  </div>
+</div>
+
+<div class="flex justify-center mt-6">
+  <%= form_with url: update_round_game_participation_path(@participation.game, @participation, round: @round), method: :post, class: "flex space-x-1" do %>
+    <div>
+      <button type="submit" name="move" value="cooperate" class="bg-green-500 text-white font-bold py-3 px-6 rounded-full transform transition hover:scale-105 hover:bg-green-600 w-32">
+        Cooperate
+      </button>
+    </div>
+    <div>
+      <button type="submit" name="move" value="betray" class="bg-red-500 text-white font-bold py-3 px-6 rounded-full transform transition hover:scale-105 hover:bg-red-600 w-32">
+        Betray
+      </button>
+    </div>
+  <% end %>
+</div>

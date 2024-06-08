@@ -1,26 +1,48 @@
 <div class="max-w-4xl mx-auto bg-white p-8 rounded shadow mt-8">
-  <h1 class="text-2xl font-bold mb-4"><%= @user.username %>'s Profile</h1>
-
-  <div class="mb-6">
-    <h2 class="text-xl font-semibold mb-4">Your Participations</h2>
-
-    <% if @participations.any? %>
-      <ul class="space-y-4">
-        <% @participations.each do |participation| %>
-          <li class="border p-4 rounded shadow">
-            <div class="text-lg font-medium"><strong>Game:</strong> <%= participation.game.title %></div>
-            <div><strong>Player Type:</strong> <%= participation.player_type %></div>
-            <div><strong>Rounds:</strong> <%= participation.rounds %></div>
-            <div><strong>Final Score:</strong> You: <%= participation.user_score %>, Player: <%= participation.player_score %></div>
-          </li>
-        <% end %>
-      </ul>
-    <% else %>
-      <p class="text-gray-500">You have not participated in any games yet.</p>
-    <% end %>
+  <div class="flex flex-col mb-4">
+    <h1 class="text-2xl font-bold"><%= @user.username %>'s Profile</h1>
+    <%= link_to 'Edit Password', edit_password_path, class: 'text-blue-500 hover:underline mt-1' %>
   </div>
+  <h2 class="text-xl font-semibold mb-4 text-center">Your Participations</h2>
 
-  <div class="mt-6">
-    <%= link_to 'Edit Password', edit_password_path, class: 'text-blue-500 hover:underline' %>
-  </div>
+  <% if @participations.any? %>
+    <div class="flex flex-col">
+      <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
+        <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
+          <div class="overflow-hidden">
+            <table class="min-w-full text-center">
+              <thead class="border-b">
+                <tr>
+                  <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4">Game</th>
+                  <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4">Player Type</th>
+                  <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4">Rounds</th>
+                  <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4">Final Score</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @participations.each_with_index do |participation, index| %>
+                  <% bg_color = case index % 6
+                      when 0 then 'bg-green-200'
+                      when 1 then 'bg-blue-200'
+                      when 2 then 'bg-red-200'
+                      when 3 then 'bg-purple-200'
+                      when 4 then 'bg-yellow-200'
+                      when 5 then 'bg-indigo-200'
+                    end %>
+                  <tr class="<%= bg_color %>">
+                    <td class="text-sm text-gray-900 font-medium px-6 py-4 whitespace-nowrap"><%= participation.game.title %></td>
+                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap"><%= participation.player_type %></td>
+                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap"><%= participation.rounds %></td>
+                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">You: <%= participation.user_score %>, Player: <%= participation.player_score %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% else %>
+    <p class="text-gray-500 text-center">You have not participated in any games yet.</p>
+  <% end %>
 </div>

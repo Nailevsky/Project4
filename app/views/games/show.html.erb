@@ -1,16 +1,75 @@
-<h1>Prisoner's  Dilemma</h1>
-<p>A classic game in game theory.</p>
+  <div class="container xl:max-w-6xl mx-auto px-4">
+    <div class="text-center mx-auto mb-6">
+      <h1 class="text-2xl leading-normal mb-2 font-bold text-gray-800 dark:text-gray-100">
+        Prisoner's Dilemma
+      </h1>
+      <p class="text-lg text-gray-500 dark:text-gray-300 mb-4">A classic game in game theory</p>
+  
+      <ul class="text-lg text-gray-600 dark:text-gray-300 ">If both cooperate, both get 3 points</ul>
+      <ul class="text-lg text-gray-600 dark:text-gray-300 ">If you cooperate and the opponent betrays, you get 0 points and the opponent gets 5 points</ul>
+      <ul class="text-lg text-gray-600 dark:text-gray-300 mb-8">If both betray, both get 1 point</ul>
+    
+    
+    <div class="max-w-xl mx-auto bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8 ">
+      <div id="strategy-description" class="text-center mb-6 text-gray-800 dark:text-gray-100"></div>
 
-<%= form_with url: start_game_game_path(@game), method: :post do %>
-  <div>
-    <label for="player_type">Choose Player:</label>
-    <%= select_tag :player_type, options_for_select([['Always Cooperate', 'always_cooperate'], ['Always Betray', 'always_betray'], ['Tit for Tat', 'tit_for_tat'], ['Random', 'random']]) %>
+      <%= form_with url: start_game_game_path(@game), method: :post, class: "space-y-6" do %>
+        <div class="flex flex-col mb-4">
+          <label for="player_type" class="text-gray-800 dark:text-gray-100 font-semibold mb-2">Choose Player:</label>
+          <div class="flex justify-center space-x-4">
+            <div class="flex-shrink max-w-full w-1/2 md:w-1/4">
+              <input type="radio" name="player_type" id="always_cooperate" value="always_cooperate" class="hidden peer" onclick="showDescription('always_cooperate')">
+              <label for="always_cooperate" class="block p-4 bg-gray-50 dark:bg-gray-700 rounded-lg text-center cursor-pointer peer-checked:bg-gray-900 peer-checked:text-white">
+                <span class="text-4xl">🤝</span>
+                <p class="text-lg leading-normal font-bold mb-1">Always Cooperate</p>
+              </label>
+            </div>
+            <div class="flex-shrink max-w-full w-1/2 md:w-1/4">
+              <input type="radio" name="player_type" id="always_betray" value="always_betray" class="hidden peer" onclick="showDescription('always_betray')">
+              <label for="always_betray" class="block p-4 bg-gray-50 dark:bg-gray-700 rounded-lg text-center cursor-pointer peer-checked:bg-gray-900 peer-checked:text-white">
+                <span class="text-4xl">🔪</span>
+                <p class="text-lg leading-normal font-bold mb-1">Always Betray</p>
+              </label>
+            </div>
+            <div class="flex-shrink max-w-full w-1/2 md:w-1/4">
+              <input type="radio" name="player_type" id="tit_for_tat" value="tit_for_tat" class="hidden peer" onclick="showDescription('tit_for_tat')">
+              <label for="tit_for_tat" class="block p-4 bg-gray-50 dark:bg-gray-700 rounded-lg text-center cursor-pointer peer-checked:bg-gray-900 peer-checked:text-white">
+                <span class="text-4xl">⚖️</span>
+                <p class="text-lg leading-normal font-bold mb-1">Tit for Tat</p>
+              </label>
+            </div>
+            <div class="flex-shrink max-w-full w-1/2 md:w-1/4">
+              <input type="radio" name="player_type" id="random" value="random" class="hidden peer" onclick="showDescription('random')">
+              <label for="random" class="block p-4 bg-gray-50 dark:bg-gray-700 rounded-lg text-center cursor-pointer peer-checked:bg-gray-900 peer-checked:text-white">
+                <span class="text-6xl">🎲</span>
+                <p class="text-lg leading-normal font-bold mb-1">Random</p>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex flex-col mb-4">
+          <label for="rounds" class="text-gray-800 dark:text-gray-100 font-semibold mb-2">Number of Rounds:</label>
+          <input type="range" id="rounds" name="rounds" min="1" max="20" value="9" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700" oninput="this.nextElementSibling.value = this.value">
+          <output class="text-center mt-2 text-gray-800 dark:text-gray-100 font-semibold">9</output>
+        </div>
+
+        <div class="text-center">
+          <%= submit_tag "Start Game", class: "w-full bg-blue-500 text-white font-bold py-2 px-4 rounded-md hover:bg-blue-600" %>
+        </div>
+      <% end %>
+    </div>
   </div>
-  <div>
-    <label for="rounds">Number of Rounds:</label>
-    <%= number_field_tag :rounds, 9 %> 
-  </div>
-  <div>
-    <%= submit_tag "Start Game" %>
-  </div>
-<% end %>
+
+  <script>
+    function showDescription(strategy) {
+      const descriptions = {
+        always_cooperate: "This player will always cooperate, no matter what the opponent does.",
+        always_betray: "This player will always betray, regardless of the opponent's actions.",
+        tit_for_tat: "This player will start by cooperating, then mimic the opponent's last move.",
+        random: "This player will randomly choose to cooperate or betray in each round."
+      };
+      document.getElementById('strategy-description').innerText = descriptions[strategy];
+    }
+  </script>
+</div>
