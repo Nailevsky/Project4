@@ -9,6 +9,9 @@ Check out the live project at: [Game Theory App on Render](https://gt-ikaz.onren
 ## Wireframes
 https://lucid.app/lucidchart/cd086045-5c58-43b6-ace5-e351aa815e01/edit?page=0_0&invitationId=inv_f7296974-7155-4ed7-9f59-07df4b1f0785#
 
+## User Stories
+https://trello.com/b/LDwGiyVN/project4
+
 ## Technologies Used
 - **Ruby on Rails**: For the backend and server-side logic.
 - **PostgreSQL**: As the primary database.
