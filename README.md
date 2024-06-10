@@ -13,7 +13,7 @@ https://lucid.app/lucidchart/cd086045-5c58-43b6-ace5-e351aa815e01/edit?page=0_0&
 https://trello.com/b/LDwGiyVN/project4
 
 ## ERD
-
+https://lucid.app/lucidchart/8664f3fb-6622-42a9-b404-17167bf53220/edit?page=0_0&invitationId=inv_67652574-27dd-4777-9e29-ff8030dc726c#
 
 ## Technologies Used
 - **Ruby on Rails**: For the backend and server-side logic.
