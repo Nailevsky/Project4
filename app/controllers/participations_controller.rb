@@ -23,6 +23,12 @@ class ParticipationsController < ApplicationController
     user_move = params[:move]
 
     player = create_player(@participation.player_type)
+
+    unless player
+      flash[:alert] = "Unknown player type: #{@participation.player_type}"
+      redirect_back(fallback_location: play_round_game_participation_path(@participation.game, @participation, round: @round)) and return
+    end
+    
     player_move = player.make_move(@round, session[:user_moves])
 
     session[:user_moves] << user_move
@@ -37,6 +43,16 @@ class ParticipationsController < ApplicationController
     @participation.save
 
     if @round >= @participation.rounds
+
+      session[:players_played_with] ||= []
+      session[:players_played_with] << @participation.player_type
+      session[:players_played_with].uniq!
+
+      if session[:players_played_with].length >= 4
+        session[:all_players_played] = true
+      end
+
+
       redirect_to game_participation_path(@participation.game, @participation)
     else
       redirect_to play_round_game_participation_path(@participation.game, @participation, round: @round + 1)
@@ -70,7 +86,7 @@ class ParticipationsController < ApplicationController
     when 'random'
       Players::RandomPlayer.new
     else
-      raise "Unknown player type: #{player_type}"
+      nil
     end
   end
 

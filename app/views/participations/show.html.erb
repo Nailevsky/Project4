@@ -1,86 +1,115 @@
-<h1 class="text-3xl font-extrabold text-center mb-6 text-gray-800 dark:text-white">
+<h1 class="text-3xl font-extrabold text-center mb-6 text-gray-800">
   Game Results
 </h1>
-<div class="bg-white dark:bg-gray-900 p-6 rounded-lg shadow-lg max-w-2xl mx-auto">
+<div class="bg-white p-6 rounded-lg shadow-lg max-w-2xl mx-auto">
   <div class="mb-4">
-    <p class="text-lg text-gray-700 dark:text-gray-300"><span class="font-semibold">Rounds:</span> <%= @participation.rounds %></p>
-    <p class="text-lg text-gray-700 dark:text-gray-300"><span class="font-semibold">Player Type:</span> <%= @participation.player_type %></p>
+    <p class="text-lg text-gray-700"><span class="font-semibold">Rounds:</span> <%= @participation.rounds %></p>
+    <p class="text-lg text-gray-700"><span class="font-semibold">Opponent Type:</span> <%= @participation.player_type %></p>
   </div>
 
-  <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-4">Final Score:</h2>
+  <h2 class="text-2xl font-bold text-gray-800 mb-4">Final Score:</h2>
   <div class="mb-4">
-    <p class="text-lg text-gray-700 dark:text-gray-300"><span class="font-semibold">You:</span> <%= @participation.user_score %></p>
-    <p class="text-lg text-gray-700 dark:text-gray-300"><span class="font-semibold">Player:</span> <%= @participation.player_score %></p>
+    <p class="text-lg text-gray-700"><span class="font-semibold">You:</span> <%= @participation.user_score %></p>
+    <p class="text-lg text-gray-700"><span class="font-semibold">Opponent:</span> <%= @participation.player_score %></p>
   </div>
+
+  <p class="text-center text-2xl font-bold text-red-500">
+    <% if @participation.user_score > @participation.player_score %>
+      You Win!
+    <% elsif @participation.user_score < @participation.player_score %>
+      You Lose
+    <% else %>
+      It's a Draw
+    <% end %>
+  </p>
+
+  <p class="text-center text-lg mt-4">
+    <% if @participation.player_type == 'always_cooperate' %>
+      That is easy! Because you know that he will always cooperate.
+    <% elsif @participation.player_type == 'always_betray' %>
+      You can never beat him.
+    <% elsif @participation.player_type == 'tit_for_tat' %>
+      You can beat him only if you know the number of rounds.
+    <% elsif @participation.player_type == 'random' %>
+      You should always betray.
+    <% end %>
+  </p>
 
   <div class="flex justify-center mt-6">
     <%= button_to 'Play Again', restart_game_participation_path(@participation.game, @participation), method: :post, class: "bg-blue-500 text-white font-bold py-3 px-6 rounded-full transform transition hover:scale-105 hover:bg-blue-600" %>
   </div>
-</div>
 
-<div class="container xl:max-w-6xl mx-auto px-4 mt-8">
-  <div class="text-center mx-auto mb-6">
-    <h1 class="text-2xl leading-normal mb-2 font-bold text-gray-800 dark:text-gray-100">
-      Or you can start a New Game
-    </h1>
-    <div class="max-w-xl mx-auto bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8">
-      <%= form_with url: start_game_game_path(@participation.game), method: :post, class: "space-y-6" do %>
-        <div class="flex flex-col mb-4">
-          <label for="player_type" class="text-gray-800 dark:text-gray-100 font-semibold mb-2">Choose Player:</label>
-          <div class="flex justify-center space-x-4">
-            <div class="flex-shrink max-w-full w-1/2 md:w-1/4">
-              <input type="radio" name="player_type" id="always_cooperate" value="always_cooperate" class="hidden peer" onclick="showDescription('always_cooperate')">
-              <label for="always_cooperate" class="block p-4 bg-gray-50 dark:bg-gray-700 rounded-lg text-center cursor-pointer peer-checked:bg-gray-900 peer-checked:text-white">
-                <span class="text-4xl">🤝</span>
-                <p class="text-lg leading-normal font-bold mb-1">Always Cooperate</p>
-              </label>
-            </div>
-            <div class="flex-shrink max-w-full w-1/2 md:w-1/4">
-              <input type="radio" name="player_type" id="always_betray" value="always_betray" class="hidden peer" onclick="showDescription('always_betray')">
-              <label for="always_betray" class="block p-4 bg-gray-50 dark:bg-gray-700 rounded-lg text-center cursor-pointer peer-checked:bg-gray-900 peer-checked:text-white">
-                <span class="text-4xl">🔪</span>
-                <p class="text-lg leading-normal font-bold mb-1">Always Betray</p>
-              </label>
-            </div>
-            <div class="flex-shrink max-w-full w-1/2 md:w-1/4">
-              <input type="radio" name="player_type" id="tit_for_tat" value="tit_for_tat" class="hidden peer" onclick="showDescription('tit_for_tat')">
-              <label for="tit_for_tat" class="block p-4 bg-gray-50 dark:bg-gray-700 rounded-lg text-center cursor-pointer peer-checked:bg-gray-900 peer-checked:text-white">
-                <span class="text-4xl">⚖️</span>
-                <p class="text-lg leading-normal font-bold mb-1">Tit for Tat</p>
-              </label>
-            </div>
-            <div class="flex-shrink max-w-full w-1/2 md:w-1/4">
-              <input type="radio" name="player_type" id="random" value="random" class="hidden peer" onclick="showDescription('random')">
-              <label for="random" class="block p-4 bg-gray-50 dark:bg-gray-700 rounded-lg text-center cursor-pointer peer-checked:bg-gray-900 peer-checked:text-white">
-                <span class="text-6xl">🎲</span>
-                <p class="text-lg leading-normal font-bold mb-1">Random</p>
-              </label>
+  <% if session[:all_players_played] %>
+    <div class="flex justify-center mt-6">
+      <%= link_to 'Learn more about Game Theory in Wiki', 'https://en.wikipedia.org/wiki/Game_theory', class: "bg-green-500 text-white font-bold py-3 px-6 rounded-full transform transition hover:scale-105 hover:bg-green-600" %>
+      <%= link_to 'In Youtoube', 'https://youtu.be/mScpHTIi-kM?si=ZP-r0P2RHv5XLI5_', class: "bg-green-500 text-white font-bold py-3 px-6 rounded-full transform transition hover:scale-105 hover:bg-green-600" %>
+      </div>
+  <% end %>
+
+  <div class="container xl:max-w-6xl mx-auto px-4 mt-8">
+    <div class="text-center mx-auto mb-6">
+      <h1 class="text-2xl leading-normal mb-2 font-bold text-gray-800">
+        Or you can start a New Game
+      </h1>
+      <div class="max-w-xl mx-auto bg-white rounded-lg shadow-lg p-8">
+        <%= form_with url: start_game_game_path(@participation.game), method: :post, class: "space-y-6" do %>
+          <div class="flex flex-col mb-4">
+            <label for="player_type" class="text-gray-800 font-semibold mb-2">Choose Player:</label>
+            <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+              <div class="flex-shrink max-w-full w-full sm:w-1/4">
+                <input type="radio" name="player_type" id="always_cooperate" value="always_cooperate" class="hidden peer" onclick="showDescription('always_cooperate')">
+                <label for="always_cooperate" class="block p-4 bg-gray-50 rounded-lg text-center cursor-pointer peer-checked:bg-gray-900 peer-checked:text-white">
+                  <span class="text-2xl sm:text-4xl">🤝</span>
+                  <p class="text-base sm:text-lg leading-normal font-bold mb-1">Always Cooperate</p>
+                </label>
+              </div>
+              <div class="flex-shrink max-w-full w-full sm:w-1/4">
+                <input type="radio" name="player_type" id="always_betray" value="always_betray" class="hidden peer" onclick="showDescription('always_betray')">
+                <label for="always_betray" class="block p-4 bg-gray-50 rounded-lg text-center cursor-pointer peer-checked:bg-gray-900 peer-checked:text-white">
+                  <span class="text-2xl sm:text-4xl">🔪</span>
+                  <p class="text-base sm:text-lg leading-normal font-bold mb-1">Always Betray</p>
+                </label>
+              </div>
+              <div class="flex-shrink max-w-full w-full sm:w-1/4">
+                <input type="radio" name="player_type" id="tit_for_tat" value="tit_for_tat" class="hidden peer" onclick="showDescription('tit_for_tat')">
+                <label for="tit_for_tat" class="block p-4 bg-gray-50 rounded-lg text-center cursor-pointer peer-checked:bg-gray-900 peer-checked:text-white">
+                  <span class="text-2xl sm:text-4xl">⚖️</span>
+                  <p class="text-base sm:text-lg leading-normal font-bold mb-1">Tit for Tat</p>
+                </label>
+              </div>
+              <div class="flex-shrink max-w-full w-full sm:w-1/4">
+                <input type="radio" name="player_type" id="random" value="random" class="hidden peer" onclick="showDescription('random')">
+                <label for="random" class="block p-4 bg-gray-50 rounded-lg text-center cursor-pointer peer-checked:bg-gray-900 peer-checked:text-white">
+                  <span class="text-2xl sm:text-6xl">🎲</span>
+                  <p class="text-base sm:text-lg leading-normal font-bold mb-1">Random</p>
+                </label>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div class="flex flex-col mb-4">
-          <label for="rounds" class="text-gray-800 dark:text-gray-100 font-semibold mb-2">Number of Rounds:</label>
-          <input type="range" id="rounds" name="rounds" min="1" max="20" value="11" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700" oninput="this.nextElementSibling.value = this.value">
-          <output class="text-center mt-2 text-gray-800 dark:text-gray-100 font-semibold">11</output>
-        </div>
+          <div class="flex flex-col mb-4">
+            <label for="rounds" class="text-gray-800 font-semibold mb-2">Number of Rounds:</label>
+            <input type="range" id="rounds" name="rounds" min="1" max="20" value="11" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer" oninput="this.nextElementSibling.value = this.value">
+            <output class="text-center mt-2 text-gray-800 font-semibold">11</output>
+          </div>
 
-        <div class="text-center">
-          <%= submit_tag "Start New Game", class: "w-full bg-blue-500 text-white font-bold py-2 px-4 rounded-md hover:bg-blue-600" %>
-        </div>
-      <% end %>
+          <div class="text-center">
+            <%= submit_tag "Start New Game", class: "w-full bg-blue-500 text-white font-bold py-2 px-4 rounded-md hover:bg-blue-600" %>
+          </div>
+        <% end %>
+      </div>
     </div>
-  </div>
 
-  <script>
-    function showDescription(strategy) {
-      const descriptions = {
-        always_cooperate: "This player will always cooperate, no matter what the opponent does.",
-        always_betray: "This player will always betray, regardless of the opponent's actions.",
-        tit_for_tat: "This player will start by cooperating, then mimic the opponent's last move.",
-        random: "This player will randomly choose to cooperate or betray in each round."
-      };
-      document.getElementById('strategy-description').innerText = descriptions[strategy];
-    }
-  </script>
+    <script>
+      function showDescription(strategy) {
+        const descriptions = {
+          always_cooperate: "This player will always cooperate, no matter what the opponent does.",
+          always_betray: "This player will always betray, regardless of the opponent's actions.",
+          tit_for_tat: "This player will start by cooperating, then mimic the opponent's last move.",
+          random: "This player will randomly choose to cooperate or betray in each round."
+        };
+        document.getElementById('strategy-description').innerText = descriptions[strategy];
+      }
+    </script>
+  </div>
 </div>

@@ -17,6 +17,7 @@
                   <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4">Player Type</th>
                   <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4">Rounds</th>
                   <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4">Final Score</th>
+                  <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4">Result</th>
                 </tr>
               </thead>
               <tbody>
@@ -34,6 +35,15 @@
                     <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap"><%= participation.player_type %></td>
                     <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap"><%= participation.rounds %></td>
                     <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">You: <%= participation.user_score %>, Player: <%= participation.player_score %></td>
+                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                      <% if participation.user_score > participation.player_score %>
+                        Win
+                      <% elsif participation.user_score < participation.player_score %>
+                        Lose
+                      <% else %>
+                        Draw
+                      <% end %>
+                    </td>
                   </tr>
                 <% end %>
               </tbody>

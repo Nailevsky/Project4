@@ -9,6 +9,11 @@ class GamesController < ApplicationController
     player_type = params[:player_type]
     rounds = params[:rounds].to_i
 
+    unless player_type
+      flash[:alert] = "You must choose a player type before starting the game."
+      redirect_to game_path(@game) and return
+    end
+
     session[:user_moves] = []
     session[:player_moves] = []
     session[:user_scores] = []
@@ -44,7 +49,7 @@ class GamesController < ApplicationController
     when 'random'
       Players::RandomPlayer.new
     else
-      raise "Unknown player type: #{player_type}"
+      nil
     end
   end
 end

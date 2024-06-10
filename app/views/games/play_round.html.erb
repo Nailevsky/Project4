@@ -1,8 +1,0 @@
-<h1>Round <%= @round %> of <%= @participation.rounds %></h1>
-
-<%= form_with url: make_move_game_participation_path(@game, @participation), method: :post do %>
-  <div>
-    <button type="submit" name="move" value="cooperate">Cooperate</button>
-    <button type="submit" name="move" value="betray">Betray</button>
-  </div>
-<% end %>
