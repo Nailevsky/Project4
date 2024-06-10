@@ -12,6 +12,9 @@ https://lucid.app/lucidchart/cd086045-5c58-43b6-ace5-e351aa815e01/edit?page=0_0&
 ## User Stories
 https://trello.com/b/LDwGiyVN/project4
 
+## ERD
+
+
 ## Technologies Used
 - **Ruby on Rails**: For the backend and server-side logic.
 - **PostgreSQL**: As the primary database.
